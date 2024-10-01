@@ -5,4 +5,15 @@
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     color-scheme: dark;
+    background-color: #222;
+}
+
+.ad {
+    transition: 100ms display ease-out allow-discrete,
+        100ms width ease allow-discrete;
+}
+@starting-style {
+    .ad {
+        width: 0;
+    }
 }
