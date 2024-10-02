@@ -17,3 +17,31 @@
         width: 0;
     }
 }
+
+@keyframes rotaterainbow {
+    from {
+        background-position-x: 0%;
+    }
+
+    to {
+        background-position-x: 100%;
+    }
+}
+
+.rainbow-text {
+    background-image: linear-gradient(
+        to left,
+        violet,
+        indigo,
+        blue,
+        green,
+        yellow,
+        orange,
+        red
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 800% 800%;
+    -webkit-text-fill-color: transparent;
+    animation: 4s rotaterainbow ease alternate infinite;
+}

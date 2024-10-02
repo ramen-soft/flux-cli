@@ -6,7 +6,7 @@ import {
     availableSchedulers,
     GenerationParameters,
 } from "../../models/models";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Settings = ({
     loading,
@@ -15,10 +15,13 @@ export const Settings = ({
     loading: boolean;
     onGenerate: (data: GenerationParameters) => void;
 }) => {
+    const [valid, setValid] = useState(false);
     const { formState, onInputChange, setValue } =
         useForm<GenerationParameters>({
             prompt: "a cat",
             model: "runware:100@1",
+            cfgScale: 7,
+            steps: 20,
             width: 1024,
             height: 1024,
         });
@@ -29,6 +32,14 @@ export const Settings = ({
             availableModels.find((am) => am.id === formState.model)!.type
         );
     }, [formState.model]);
+
+    useEffect(() => {
+        if (!formState.prompt.trim().length) {
+            setValid(false);
+        } else {
+            setValid(true);
+        }
+    }, [formState.prompt]);
 
     return (
         <div className="flex flex-col gap-3 w-full">
@@ -100,9 +111,11 @@ export const Settings = ({
                 </div>
             </div>
 
+            {/*
             <div className="flex flex-col gap-1">
                 <label>Seed</label>
                 <input
+                    type="number"
                     className="rounded-md text-sm p-2"
                     name="seed"
                     value={formState.seed}
@@ -110,11 +123,13 @@ export const Settings = ({
                     onChange={onInputChange}
                 ></input>
             </div>
+            */}
 
             <div className="flex gap-1">
                 <div className="flex flex-col gap-1 flex-1">
                     <label>CFG Scale</label>
                     <input
+                        type="number"
                         className="w-full rounded-md text-sm p-2"
                         name="cfgScale"
                         value={formState.cfgScale}
@@ -126,6 +141,7 @@ export const Settings = ({
                 <div className="flex flex-col gap-1 flex-1">
                     <label>Steps</label>
                     <input
+                        type="number"
                         className="w-full rounded-md text-sm p-2"
                         name="steps"
                         value={formState.steps}
@@ -158,6 +174,7 @@ export const Settings = ({
             <div className="flex justify-end">
                 <Button
                     variant="primary"
+                    disabled={!valid}
                     onClick={() => onGenerate({ ...formState })}
                     icon={
                         <Spinner
