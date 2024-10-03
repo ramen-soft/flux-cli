@@ -2,6 +2,10 @@
 
 A simple UI to perform calls to Runware ™ API, made on React and Runware SDK
 
+[Demo](https://ramen-soft.github.io/flux-cli/)
+
+You'll need an API key. See **Getting Started** section for details.
+
 ## Installation
 
 Clone this repo:
